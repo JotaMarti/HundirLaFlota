@@ -6,11 +6,13 @@ public class tableroJugador {
     
     int[] tableroSize;
     String[][] miTablero;
-    int movimientos=0;
+    int[] posicionBarco;
+    
     
     public tableroJugador(int[] a){
         tableroSize=a;
         miTablero=new String[tableroSize[0]+1][tableroSize[1]+1];
+        
         
         miTablero[0][0]="      ";
         
@@ -47,10 +49,19 @@ public class tableroJugador {
     }
     
     public void realizaMovimiento(int[] a){
-        miTablero[a[0]][a[1]]="[AGUA ]";
-        movimientos++;
+        
+        if(a[0]==posicionBarco[0]&& a[1]==posicionBarco[1]){
+            miTablero[a[0]][a[1]]="[BARCO]";
+        } else {
+            miTablero[a[0]][a[1]]="[AGUA ]";
+        }
+        
+        
     }
     
+    public void setPosicionBarco(int[] b){
+        posicionBarco=b;
+    }
     
     
     public String[][] GetArray(){
