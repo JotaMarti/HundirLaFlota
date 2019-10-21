@@ -12,6 +12,7 @@ public class HundirLaFlota {
        int[] movimiento=new int[2];
        final int[] tablero={5,7};
        int movimientos=0;
+       int numeroMovimientos=((tablero[0]*tablero[1])-25);
        
        System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
        System.out.println("INICIO DEL JUEGO");
@@ -21,7 +22,7 @@ public class HundirLaFlota {
        System.out.println(tablero2.GetPosicionBarco()[0]);
        System.out.println(tablero2.GetPosicionBarco()[1]);
        
-    while(tablero1.GetGanado()==false){
+    while(tablero1.GetGanado()==false & movimientos<numeroMovimientos){
         tablero1.dibujaTablero();
         System.out.println();
         
@@ -34,11 +35,13 @@ public class HundirLaFlota {
        
         tablero1.realizaMovimiento(movimiento);
         movimientos++;
+        System.out.println(movimientos);
+        System.out.println(numeroMovimientos);
     }
     tablero1.dibujaTablero();  
     System.out.println();
     System.out.println();
-    System.out.println("Lo has hecho en: " + movimientos + " movimientos!");
+    System.out.println("Lo has hecho en: " + movimientos + " movimientos!, y el bar");
     System.out.println();
     }
     

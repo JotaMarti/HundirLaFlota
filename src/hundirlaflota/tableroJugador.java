@@ -14,21 +14,20 @@ public class tableroJugador {
         tableroSize=a;
         miTablero=new String[tableroSize[0]+1][tableroSize[1]+1];
         
-        
+        // Espacio en blanco en [0][0]
         miTablero[0][0]="      ";
         
-        
+        // Inserto los numeros de las columnas
         for(int j=1;j<miTablero[1].length;j++){
             miTablero[0][j]=Integer.toString(j)+"      ";
         } 
         
-        
+        // Inserto los numeros de las filas
         for(int i=1;i<miTablero.length;i++){
-           for(int j=0;j<miTablero[1].length;j++){
-               miTablero[i][0]=Integer.toString(i);
-           } 
+            miTablero[i][0]=Integer.toString(i);  
         }
         
+        // Llena el tablero
         for(int i=1;i<miTablero.length;i++){
            for(int j=1;j<miTablero[1].length;j++){
                miTablero[i][j]="[     ]";
