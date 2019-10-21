@@ -21,7 +21,7 @@ public class HundirLaFlota {
        System.out.println(tablero2.GetPosicionBarco()[0]);
        System.out.println(tablero2.GetPosicionBarco()[1]);
        
-    while(movimientos<3){
+    while(tablero1.GetGanado()==false){
         tablero1.dibujaTablero();
         System.out.println();
         
@@ -35,7 +35,9 @@ public class HundirLaFlota {
         tablero1.realizaMovimiento(movimiento);
         movimientos++;
     }
-       
+    tablero1.dibujaTablero();  
+    System.out.println();
+    System.out.println();
     System.out.println("Lo has hecho en: " + movimientos + " movimientos!");
     System.out.println();
     }
