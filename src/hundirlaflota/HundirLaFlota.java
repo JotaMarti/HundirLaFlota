@@ -12,13 +12,14 @@ public class HundirLaFlota {
        int[] movimiento=new int[2];
        final int[] tablero={5,7};
        int movimientos=0;
-       int numeroMovimientos=((tablero[0]*tablero[1])-25);
+       int numeroMovimientos=((tablero[0]*tablero[1])-30);
        
        System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
        System.out.println("INICIO DEL JUEGO");
        tableroJugador tablero1=new tableroJugador(tablero);
        tableroMaquina tablero2=new tableroMaquina(tablero1.GetArray());
        tablero1.setPosicionBarco(tablero2.GetPosicionBarco());
+       
        System.out.println(tablero2.GetPosicionBarco()[0]);
        System.out.println(tablero2.GetPosicionBarco()[1]);
        
@@ -35,13 +36,16 @@ public class HundirLaFlota {
        
         tablero1.realizaMovimiento(movimiento);
         movimientos++;
-        System.out.println(movimientos);
-        System.out.println(numeroMovimientos);
     }
-    tablero1.dibujaTablero();  
+    tablero1.dibujaTableroPerdedor();  
     System.out.println();
     System.out.println();
-    System.out.println("Lo has hecho en: " + movimientos + " movimientos!, y el bar");
+    if(tablero1.GetGanado()==false){
+        System.out.println("No has encontrado el barco en: " + movimientos + " movimientos!, el barco estaba en la fila: " + tablero2.GetPosicionBarco()[0] + " y en la columna: " + tablero2.GetPosicionBarco()[1]);
+    } else {
+        System.out.println("Enhorabuena!!!, has encontrado el barco en " + movimientos + " movimientos!!");
+    }
+    
     System.out.println();
     }
     

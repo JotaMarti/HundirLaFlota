@@ -4,13 +4,14 @@ package hundirlaflota;
 
 public class tableroJugador {
     
-    int[] tableroSize;
-    String[][] miTablero;
-    int[] posicionBarco;
-    Boolean ganado=false;
+    private final int[] tableroSize;
+    private String[][] miTablero;
+    private int[] posicionBarco;
+    private Boolean ganado;
     
     
     public tableroJugador(int[] a){
+        ganado=false;
         tableroSize=a;
         miTablero=new String[tableroSize[0]+1][tableroSize[1]+1];
         
@@ -44,8 +45,18 @@ public class tableroJugador {
                System.out.print(miTablero[i][j]);
                System.out.print(" ");
            }
-        
-       }
+        }
+    }
+    
+    public void dibujaTableroPerdedor(){
+        miTablero[posicionBarco[0]][posicionBarco[1]]="[BARCO]";
+        for(int i=0;i<miTablero.length;i++){
+           System.out.println();
+           for(int j=0;j<miTablero[1].length;j++){
+               System.out.print(miTablero[i][j]);
+               System.out.print(" ");
+           }
+        }
     }
     
     public void realizaMovimiento(int[] a){
@@ -75,7 +86,7 @@ public class tableroJugador {
     
     
     public String[][] GetArray(){
-        return this.miTablero;
+        return miTablero;
     }
     
     
