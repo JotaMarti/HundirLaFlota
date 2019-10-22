@@ -23,6 +23,7 @@ public class tableroMaquina {
         
     }
     
+    
     public int[] GetPosicionBarco(){
         return b;
     }
