@@ -10,6 +10,9 @@ public class HundirLaFlota {
         final int[] tablero = {50,50};
         int movimientos = 0;
         int numeroMovimientos;
+        String[][] tableroJugador;
+        int[][] tableroMaquina;
+        Boolean ganado=false;
 
         System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
         System.out.println("INICIO DEL JUEGO");
@@ -26,7 +29,47 @@ public class HundirLaFlota {
             }
         }
         numeroMovimientos=((tablero[0] * tablero[1]) - 10);
-        tableroJugador tablero1 = new tableroJugador(tablero);
+        
+             
+        tableroJugador=new String[tablero[0]+1][tablero[1]+1];
+        tableroJugador[0][0]="         ";
+        
+        // Inserto los numeros de las columnas
+        for(int j=1;j<tableroJugador[1].length;j++){
+            if(j>=10){
+                tableroJugador[0][j]=Integer.toString(j)+"     ";
+            } else {
+                tableroJugador[0][j]=Integer.toString(j)+"      ";
+            }
+            
+        } 
+        
+        // Inserto los numeros de las filas
+        for(int i=1;i<tableroJugador.length;i++){
+            if(i>=10){
+                tableroJugador[i][0]=Integer.toString(i) + "  ";
+            } else {
+                tableroJugador[i][0]=Integer.toString(i) + "   ";
+            }
+              
+        }
+        
+        // Llena el tablero
+        for(int i=1;i<tableroJugador.length;i++){
+           for(int j=1;j<tableroJugador[1].length;j++){
+               tableroJugador[i][j]="[     ]";
+           } 
+        }
+        
+        
+        
+        
+                
+        
+        
+        
+        
+        //tengo que fabricar el tablero de la maquina
         tableroMaquina tablero2 = new tableroMaquina(tablero);
         tablero1.setPosicionBarco(tablero2.GetPosicionBarco());
 
