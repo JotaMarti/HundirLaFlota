@@ -7,7 +7,7 @@ public class HundirLaFlota {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[] movimiento = new int[2];
-        final int[] tablero = {50,50};
+        int[] tablero = {50,50};
         int movimientos = 0;
         int numeroMovimientos;
 
