@@ -76,6 +76,7 @@ public class HundirLaFlota {
         tablero1.dibujaTableroPerdedor();
 
         System.out.println();
+        
         System.out.println();
 
         if (tablero1.GetGanado() == false) {
