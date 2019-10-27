@@ -27,11 +27,14 @@ public class HundirLaFlota {
         int[] tableroMaxSize = {20, 20};
         //Variable por si en algun momento queremos cambiar la regla de como calculamos los movimientos del jugador
         int ajusteMovimientos = 13;
+        //Array con los posibles estados de las fichas del tablero
+        String[] fichasTablero={"[BARCO]","[AGUA ]","[     ]"};
 
         System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
         System.out.println("INICIO DEL JUEGO");
 
-        //Bucle para pedir al usuario la medida del tablero, lo he metido en un do while para que si se sale de los limites no lo vuelva a pedir y a parte he manejado las excepciones que puedan haber
+        /*Bucle para pedir al usuario la medida del tablero, lo he metido en un do while para no tener que iniciar la variable del tablero a algun numero
+        y a parte he manejado las excepciones que puedan haber*/
         do {
             System.out.println("Introduce una medida de tablero de entre " + tableroMinSize[0] + "x" + tableroMinSize[1] + " a " + tableroMaxSize[0] + "x" + tableroMaxSize[1]);
             try {
@@ -74,7 +77,7 @@ public class HundirLaFlota {
         // Llena el tablero
         for (int i = 1; i < tableroJugador.length; i++) {
             for (int j = 1; j < tableroJugador[1].length; j++) {
-                tableroJugador[i][j] = "[     ]";
+                tableroJugador[i][j] = fichasTablero[2];
             }
         }
 
@@ -143,11 +146,11 @@ public class HundirLaFlota {
                     }
                 }
                 //Esto lo hago para en el caso que el movimiento ya esta realizado sacar un pequeño mensaje que alerte al jugador
-                if (tableroJugador[movimiento[0]][movimiento[1]] == "[AGUA ]") {
+                if (tableroJugador[movimiento[0]][movimiento[1]] == fichasTablero[1]) {
                     System.out.println();
                     System.out.println("Cordenas ya introducidas anteriormente, por favor inseterte unas nuevas cordenadas.");
                 }
-            } while (tableroJugador[movimiento[0]][movimiento[1]] == "[AGUA ]");
+            } while (tableroJugador[movimiento[0]][movimiento[1]] == fichasTablero[1]);
             
             
             /*Comprueba si se ha acertado, si ha sido asi inserta todas las aguas en las casillas (menos los numeros de las tablas) y insterta el barco en la casilla correspondiente
@@ -155,19 +158,19 @@ public class HundirLaFlota {
             if (movimiento[0] == posicionBarco[0] && movimiento[1] == posicionBarco[1]) {
                 for (int i = 1; i < tableroJugador.length; i++) {
                     for (int j = 1; j < tableroJugador[1].length; j++) {
-                        tableroJugador[i][j] = "[AGUA ]";
+                        tableroJugador[i][j] = fichasTablero[1];
                     }
                 }
-                tableroJugador[movimiento[0]][movimiento[1]] = "[BARCO]";
+                tableroJugador[movimiento[0]][movimiento[1]] = fichasTablero[0];
                 ganado = true;
             } else {
-                tableroJugador[movimiento[0]][movimiento[1]] = "[AGUA ]";
+                tableroJugador[movimiento[0]][movimiento[1]] = fichasTablero[1];
             }
             movimientos++;
         }
         
         //Esto vuelve a imprimir el tablero, en caso de que hayas perdido veras donde estaba el barco
-        tableroJugador[posicionBarco[0]][posicionBarco[1]] = "[BARCO]";
+        tableroJugador[posicionBarco[0]][posicionBarco[1]] = fichasTablero[0];
         for (int i = 0; i < tableroJugador.length; i++) {
             System.out.println();
             for (int j = 0; j < tableroJugador[1].length; j++) {
