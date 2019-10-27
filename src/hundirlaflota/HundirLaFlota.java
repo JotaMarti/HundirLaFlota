@@ -26,12 +26,12 @@ public class HundirLaFlota {
         //Array donde pondremos el tamaño maximo del tablero
         int[] tableroMaxSize = {20, 20};
         //Variable por si en algun momento queremos cambiar la regla de como calculamos los movimientos del jugador
-        int ajusteMovimientos = 13;
+        int ajusteMovimientos = 10;
         //Array con los posibles estados de las fichas del tablero
-        String[] fichasTablero={"[BARCO]","[AGUA ]","[     ]"};
+        String[] fichasTablero = {"[BARCO]", "[AGUA ]", "[     ]"};
 
         System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
-        System.out.println("INICIO DEL JUEGO");
+
 
         /*Bucle para pedir al usuario la medida del tablero, lo he metido en un do while para no tener que iniciar la variable del tablero a algun numero
         y a parte he manejado las excepciones que puedan haber*/
@@ -52,62 +52,62 @@ public class HundirLaFlota {
 
         //Seteo el tamaño del array del tablero del jugador y le añado un espacio en blanco en 0 0 para darle formato a la salida mas adelante    
         tableroJugador = new String[tablero[0] + 1][tablero[1] + 1];
-        tableroJugador[0][0] = "         ";
-        // Con estos tres FOR fabrico el tablero
-        // Inserto los numeros de las columnas
-        for (int j = 1; j < tableroJugador[1].length; j++) {
-            if (j >= 10) {
-                tableroJugador[0][j] = Integer.toString(j) + "     ";
-            } else {
-                tableroJugador[0][j] = Integer.toString(j) + "      ";
-            }
-
-        }
-
-        // Inserto los numeros de las filas
-        for (int i = 1; i < tableroJugador.length; i++) {
-            if (i >= 10) {
-                tableroJugador[i][0] = Integer.toString(i) + "  ";
-            } else {
-                tableroJugador[i][0] = Integer.toString(i) + "   ";
-            }
-
-        }
 
         // Llena el tablero
-        for (int i = 1; i < tableroJugador.length; i++) {
-            for (int j = 1; j < tableroJugador[1].length; j++) {
-                tableroJugador[i][j] = fichasTablero[2];
+        for (int fila = 0; fila < tableroJugador.length; fila++) {
+            for (int columna = 0; columna < tableroJugador[1].length; columna++) {
+                //Con esto insterto un espacio en blanco en 0,0 para dare formato a la tabla
+                if (fila == 0 & columna == 0) {
+                    tableroJugador[0][0] = "         ";
+                }
+                //Con este if inserto las fichas en blanco en la tabla
+                if (fila > 0 & columna > 0) {
+                    tableroJugador[fila][columna] = fichasTablero[2];
+                }
+                //Con este if pongo los numeros en las columnas, lo de tener dos posibilidades es para que quede bien con numeros de dos cifras
+                if (columna >= 10) {
+                    tableroJugador[0][columna] = Integer.toString(columna) + "     ";
+                } else if (columna > 0) {
+                    tableroJugador[0][columna] = Integer.toString(columna) + "      ";
+                }
+                //Con este if pongo los numeros en las filas
+                if (fila >= 10) {
+                    tableroJugador[fila][0] = Integer.toString(fila) + "  ";
+                } else if (fila > 0) {
+                    tableroJugador[fila][0] = Integer.toString(fila) + "   ";
+                }
+
             }
         }
 
         /*Creamos tablero de la maquina (realmente genero un numero al azaar dependiendo del tamaño del tablero) los ifs es por si me sale en
         la posicion 0 que ocupan los numeros o me sale fuera de los limites, imagino que habra alguna forma mas facil de hacerlo.*/
-        posicionBarco[0] = (int) (Math.random() * tablero[0]);
-        posicionBarco[1] = (int) (Math.random() * tablero[1]);
+        posicionBarco[0] = (int) (Math.random() * (tablero[0]+1));
+        posicionBarco[1] = (int) (Math.random() * (tablero[1]+1));
         if (posicionBarco[0] == 0) {
             posicionBarco[0] = 1;
-        } else if (posicionBarco[0] > tablero[0]) {
+        } else if (posicionBarco[0] >= tablero[0]) {
             posicionBarco[0] = tablero[0];
         }
 
         if (posicionBarco[1] == 0) {
             posicionBarco[1] = 1;
-        } else if (posicionBarco[1] > tablero[1]) {
+        } else if (posicionBarco[1] >= tablero[1]) {
             posicionBarco[1] = tablero[1];
         }
 
-        /* Descomentar para ver la posicion del barco y poder probar el programa
+        //Descomentar para ver la posicion del barco y poder probar el programa
         System.out.println(posicionBarco[0]);
         System.out.println(posicionBarco[1]);
-         */
+         
+        System.out.println("INICIO DEL JUEGO");
         //Bucle principal del programa, si ganamos o se nos acaban los movimientos se rompe
-        while (ganado == false & movimientos < numeroMovimientos) {
+        while (ganado == false & movimientos <= numeroMovimientos) {
             //Bucle para dibujar el tablero en pantalla
-            for (int i = 0; i < tableroJugador.length; i++) {
+            for (int fila = 0; fila < tableroJugador.length; fila++) {
                 System.out.println();
-                for (int j = 0; j < tableroJugador[1].length; j++) {
-                    System.out.print(tableroJugador[i][j]);
+                for (int columna = 0; columna < tableroJugador[1].length; columna++) {
+                    System.out.print(tableroJugador[fila][columna]);
                     System.out.print(" ");
                 }
             }
@@ -146,19 +146,18 @@ public class HundirLaFlota {
                     }
                 }
                 //Esto lo hago para en el caso que el movimiento ya esta realizado sacar un pequeño mensaje que alerte al jugador
-                if (tableroJugador[movimiento[0]][movimiento[1]] == fichasTablero[1]) {
+                if (tableroJugador[movimiento[0]][movimiento[1]].equals(fichasTablero[1])) {
                     System.out.println();
                     System.out.println("Cordenas ya introducidas anteriormente, por favor inseterte unas nuevas cordenadas.");
                 }
-            } while (tableroJugador[movimiento[0]][movimiento[1]] == fichasTablero[1]);
-            
-            
+            } while (tableroJugador[movimiento[0]][movimiento[1]].equals(fichasTablero[1]));
+
             /*Comprueba si se ha acertado, si ha sido asi inserta todas las aguas en las casillas (menos los numeros de las tablas) y insterta el barco en la casilla correspondiente
             tambien cambia ganado a true, y si no se ha ganado simplemente se inserta en la casilla elegida el agua y se añade uno a los movimientos realizados por el jugador*/
             if (movimiento[0] == posicionBarco[0] && movimiento[1] == posicionBarco[1]) {
-                for (int i = 1; i < tableroJugador.length; i++) {
-                    for (int j = 1; j < tableroJugador[1].length; j++) {
-                        tableroJugador[i][j] = fichasTablero[1];
+                for (int fila = 1; fila < tableroJugador.length; fila++) {
+                    for (int columna = 1; columna < tableroJugador[1].length; columna++) {
+                        tableroJugador[fila][columna] = fichasTablero[1];
                     }
                 }
                 tableroJugador[movimiento[0]][movimiento[1]] = fichasTablero[0];
@@ -168,23 +167,25 @@ public class HundirLaFlota {
             }
             movimientos++;
         }
-        
+
         //Esto vuelve a imprimir el tablero, en caso de que hayas perdido veras donde estaba el barco
         tableroJugador[posicionBarco[0]][posicionBarco[1]] = fichasTablero[0];
-        for (int i = 0; i < tableroJugador.length; i++) {
+        for (int fila = 0; fila < tableroJugador.length; fila++) {
             System.out.println();
-            for (int j = 0; j < tableroJugador[1].length; j++) {
-                System.out.print(tableroJugador[i][j]);
+            for (int columna = 0; columna < tableroJugador[1].length; columna++) {
+                System.out.print(tableroJugador[fila][columna]);
                 System.out.print(" ");
             }
         }
+        //Saltos de linea para formatear
+        System.out.println();
+        System.out.println();
 
-        System.out.println();
-        System.out.println();
-        
         //If para personalizar el mensaje en caso de que hayas ganado o no
         if (ganado == false) {
             System.out.println("No has encontrado el barco en: " + movimientos + " movimiento/s!, el barco estaba en la fila: " + posicionBarco[0] + " y en la columna: " + posicionBarco[1]);
+        } else if (movimientos == 1) {
+            System.out.println("Enhorabuena!!!, has encontrado el barco en " + movimientos + " movimiento, eres un crack!!");
         } else {
             System.out.println("Enhorabuena!!!, has encontrado el barco en " + movimientos + " movimientos!!");
         }
