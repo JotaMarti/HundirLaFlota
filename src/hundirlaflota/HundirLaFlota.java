@@ -29,6 +29,9 @@ public class HundirLaFlota {
         int ajusteMovimientos = 10;
         //Array con los posibles estados de las fichas del tablero
         String[] fichasTablero = {"[BARCO]", "[AGUA ]", "[     ]"};
+        //Boleanos para cuando hayamos ganado y tengamos que dibujar el agua al rededor del barco sepamos si estamos dentro de los limites o no
+        boolean dentroFila;
+        boolean dentroColumna;
 
         System.out.println("Bienvenido al juego **HUNDIR LA FLOTA**");
 
@@ -82,24 +85,24 @@ public class HundirLaFlota {
 
         /*Creamos tablero de la maquina (realmente genero un numero al azaar dependiendo del tamaño del tablero) los ifs es por si me sale en
         la posicion 0 que ocupan los numeros o me sale fuera de los limites, imagino que habra alguna forma mas facil de hacerlo.*/
-        posicionBarco[0] = (int) (Math.random() * (tablero[0]+1));
-        posicionBarco[1] = (int) (Math.random() * (tablero[1]+1));
+        posicionBarco[0] = (int) (Math.random() * (tablero[0] + 1));
+        posicionBarco[1] = (int) (Math.random() * (tablero[1] + 1));
         if (posicionBarco[0] == 0) {
             posicionBarco[0] = 1;
-        } else if (posicionBarco[0] >= tablero[0]) {
+        } else if (posicionBarco[0] > tablero[0]) {
             posicionBarco[0] = tablero[0];
         }
 
         if (posicionBarco[1] == 0) {
             posicionBarco[1] = 1;
-        } else if (posicionBarco[1] >= tablero[1]) {
+        } else if (posicionBarco[1] > tablero[1]) {
             posicionBarco[1] = tablero[1];
         }
 
         //Descomentar para ver la posicion del barco y poder probar el programa
         System.out.println(posicionBarco[0]);
         System.out.println(posicionBarco[1]);
-         
+
         System.out.println("INICIO DEL JUEGO");
         //Bucle principal del programa, si ganamos o se nos acaban los movimientos se rompe
         while (ganado == false & movimientos <= numeroMovimientos) {
@@ -152,12 +155,17 @@ public class HundirLaFlota {
                 }
             } while (tableroJugador[movimiento[0]][movimiento[1]].equals(fichasTablero[1]));
 
-            /*Comprueba si se ha acertado, si ha sido asi inserta todas las aguas en las casillas (menos los numeros de las tablas) y insterta el barco en la casilla correspondiente
-            tambien cambia ganado a true, y si no se ha ganado simplemente se inserta en la casilla elegida el agua y se añade uno a los movimientos realizados por el jugador*/
+            /*Comprueba si se ha acertado, si ha sido asi inserta agua en las casillas al rededor del barco mediante una seria de comprobaciones. Basicamente
+            con un dos for recorro las casillas al rededor del barco y con dos booleanos compruebo si estan dentro de los limites, si es asi inserto el agua.
+            Si no se ha acertado simplemente marcamos esa casilla como agua, sumamos un movimiento y volvemos a realizar el bucle general*/
             if (movimiento[0] == posicionBarco[0] && movimiento[1] == posicionBarco[1]) {
-                for (int fila = 1; fila < tableroJugador.length; fila++) {
-                    for (int columna = 1; columna < tableroJugador[1].length; columna++) {
-                        tableroJugador[fila][columna] = fichasTablero[1];
+                for (int fila = (posicionBarco[0] - 1); fila < (posicionBarco[0] + 2); fila++) {
+                    for (int columna = (posicionBarco[1] - 1); columna < (posicionBarco[1] + 2); columna++) {
+                        dentroFila = (fila > 0) && (fila < tableroJugador.length);
+                        dentroColumna = (columna > 0) && (columna < tableroJugador[1].length);
+                        if (dentroFila && dentroColumna) {
+                            tableroJugador[fila][columna] = fichasTablero[1];
+                        }
                     }
                 }
                 tableroJugador[movimiento[0]][movimiento[1]] = fichasTablero[0];
